@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class ArvoreBinaria {
@@ -24,6 +26,38 @@ public class ArvoreBinaria {
             emOrdem(no.direito);
         }
     }
+    
+    void posOrdem(No no) {
+        if (no != null) {
+            posOrdem(no.esquerdo);
+            preOrdem(no.direito);
+            System.out.println(no.valor + " ");
+        }
+    }
+
+    int altura(No no) {
+        if (no == null) return 0;
+            int altEsq = altura(no.esquerdo);
+            int altDir = altura(no.direito);
+            return 1 + Math.max(altEsq, altDir);
+}
+
+    void imprimirNivel(No no, int nivel) {
+        if (no == null) return;
+        if (nivel == 1) {
+            System.out.print(no.valor + " ");
+        } else {
+            imprimirNivel(no.esquerdo, nivel - 1);
+            imprimirNivel(no.direito, nivel - 1);
+        }
+}
+
+    void porNivelRecursivo(No raiz) {
+        int h = altura(raiz);
+        for (int i = 1; i <= h; i++) {
+        imprimirNivel(raiz, i);
+    }
+}
 
     void preOrdemIterativo(No raiz) {
         if (raiz == null) return;
@@ -59,4 +93,46 @@ public class ArvoreBinaria {
             atual = atual.direito;
         }
     }
+    void posOrdemIterativo(No raiz) {
+    if (raiz == null) return;
+
+    Stack<No> pilha1 = new Stack<>();
+    Stack<No> pilha2 = new Stack<>();
+
+    pilha1.push(raiz);
+
+    while (!pilha1.isEmpty()) {
+        No atual = pilha1.pop();
+        pilha2.push(atual);
+
+        if (atual.esquerdo != null) {
+            pilha1.push(atual.esquerdo);
+        }
+        if (atual.direito != null) {
+            pilha1.push(atual.direito);
+        }
+    }
+
+    while (!pilha2.isEmpty()) {
+        System.out.print(pilha2.pop().valor + " ");
+    }
+}
+    void porNivel(No raiz) {
+    if (raiz == null) return;
+
+    Queue<No> fila = new LinkedList<>();
+    fila.add(raiz);
+
+    while (!fila.isEmpty()) {
+        No atual = fila.poll();
+        System.out.print(atual.valor + " ");
+
+        if (atual.esquerdo != null) {
+            fila.add(atual.esquerdo);
+        }
+        if (atual.direito != null) {
+            fila.add(atual.direito);
+        }
+    }
+}
 }
