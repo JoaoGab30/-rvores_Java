@@ -162,7 +162,7 @@ public int contarNosIterativo(No raiz) {
 }
     
 
-    public int contarNosIterativoPilha(No raiz) {
+    public int contarNosIterativoP(No raiz) {
         if (raiz == null) {
             return 0;
         }
@@ -183,6 +183,7 @@ public int contarNosIterativo(No raiz) {
                 pilha.push(atual.esquerdo);
             }
         }
+         return contador;
 
     }
 
